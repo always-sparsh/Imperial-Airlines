@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Imperial Airlines - Premium Air Travel</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            line-height: 1.6;
+            color: #333;
+        }
+
+        .navbar {
+            background: linear-gradient(135deg, #1a1a2e 0%, #16213e 100%);
+            padding: 1rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
+            border-bottom: 3px solid #5dade2;
+        }
+
+        .navbar-content {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            max-width: 1400px;
+            margin: 0 auto;
+            flex-wrap: wrap;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .logo img {
+            height: 50px;
+            width: auto;
+        }
+
+        .logo-text {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #d4af37;
+            letter-spacing: 2px;
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: #fff;
+            text-decoration: none;
+            transition: color 0.3s;
+            font-weight: 500;
+            padding: 0.5rem 1rem;
+        }
+
+        .nav-links a:hover {
+            color: #5dade2;
+        }
+
+        .auth-section {
+            display: flex;
+            gap: 1rem;
+        }
+
+        .btn {
+            padding: 0.6rem 1.5rem;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            text-decoration: none;
+            display: inline-block;
+        }
+
+        .btn-primary {
+            background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+            color: #fff;
+        }
+
+        .btn-primary:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(93, 173, 226, 0.4);
+        }
+
+        .btn-secondary {
+            background: transparent;
+            color: #fff;
+            border: 2px solid #5dade2;
+        }
+
+        .btn-secondary:hover {
+            background: #5dade2;
+            color: #fff;
+        }
+
+        .hero {
+            margin-top: 70px;
+            height: 90vh;
+            background: linear-gradient(rgba(0,0,0,0.5), rgba(0,0,0,0.5)), url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 600"><rect fill="%231a1a2e" width="1200" height="600"/><path fill="%2316213e" d="M0 300L50 283.3C100 266.7 200 233.3 300 233.3C400 233.3 500 266.7 600 283.3C700 300 800 300 900 283.3C1000 266.7 1100 233.3 1150 216.7L1200 200V600H1150C1100 600 1000 600 900 600C800 600 700 600 600 600C500 600 400 600 300 600C200 600 100 600 50 600H0V300Z"/></svg>');
+            background-size: cover;
+            background-position: center;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            color: #fff;
+        }
+
+        .hero-content h1 {
+            font-size: 3.5rem;
+            margin-bottom: 1rem;
+            color: #d4af37;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+        }
+
+        .hero-content p {
+            font-size: 1.3rem;
+            margin-bottom: 2rem;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.5);
+        }
+
+        .section {
+            padding: 4rem 5%;
+            min-height: 60vh;
+        }
+
+        .section:nth-child(even) {
+            background: #f8f9fa;
+        }
+
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            color: #1a1a2e;
+            margin-bottom: 2rem;
+            font-size: 2.5rem;
+            text-align: center;
+        }
+
+        .search-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-top: 4px solid #5dade2;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .search-form {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 1.5rem;
+        }
+
+        .form-group {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .form-group label {
+            margin-bottom: 0.5rem;
+            font-weight: 600;
+            color: #1a1a2e;
+        }
+
+        .form-group input, .form-group select {
+            padding: 0.8rem;
+            border: 2px solid #ddd;
+            border-radius: 5px;
+            font-size: 1rem;
+        }
+
+        .form-group input:focus, .form-group select:focus {
+            outline: none;
+            border-color: #5dade2;
+            box-shadow: 0 0 0 3px rgba(93, 173, 226, 0.1);
+        }
+
+        .features {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 2rem;
+            margin: 3rem 0;
+        }
+
+        .feature-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            text-align: center;
+            transition: transform 0.3s;
+        }
+
+        .feature-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 20px rgba(93, 173, 226, 0.3);
+        }
+
+        .feature-card h3 {
+            color: #d4af37;
+            margin: 1rem 0;
+            font-size: 1.4rem;
+        }
+
+        .feature-icon {
+            font-size: 3rem;
+            margin-bottom: 1rem;
+        }
+
+        .flights-container {
+            margin-top: 3rem;
+        }
+
+        .flight-card {
+            background: #fff;
+            padding: 2rem;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 1.5rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: transform 0.3s;
+            flex-wrap: wrap;
+            gap: 2rem;
+        }
+
+        .flight-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 8px 25px rgba(93, 173, 226, 0.3);
+        }
+
+        .flight-info {
+            display: flex;
+            gap: 3rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .flight-time {
+            text-align: center;
+        }
+
+        .flight-time h3 {
+            font-size: 1.8rem;
+            color: #1a1a2e;
+        }
+
+        .flight-time p {
+            color: #666;
+        }
+
+        .flight-duration {
+            text-align: center;
+            color: #5dade2;
+            font-weight: 600;
+        }
+
+        .flight-price {
+            text-align: right;
+        }
+
+        .flight-price h3 {
+            font-size: 2rem;
+            color: #d4af37;
+        }
+
+        .about-content {
+            font-size: 1.1rem;
+            line-height: 1.8;
+            color: #555;
+            margin-bottom: 2rem;
+            text-align: center;
+            max-width: 900px;
+            margin: 0 auto 3rem;
+        }
+
+        .auth-forms {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+            gap: 3rem;
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+
+        .auth-card {
+            background: #fff;
+            padding: 2.5rem;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-top: 4px solid #5dade2;
+        }
+
+        .auth-card h3 {
+            color: #1a1a2e;
+            margin-bottom: 1.5rem;
+            font-size: 1.8rem;
+        }
+
+        .info-banner {
+            background: linear-gradient(135deg, #5dade2 0%, #3498db 100%);
+            color: #fff;
+            padding: 3rem;
+            border-radius: 15px;
+            text-align: center;
+            margin: 3rem auto;
+            max-width: 900px;
+        }
+
+        .info-banner h3 {
+            margin-bottom: 1rem;
+            font-size: 2rem;
+        }
+
+        .info-note {
+            background: #fff3cd;
+            border-left: 4px solid #d4af37;
+            padding: 1rem 1.5rem;
+            border-radius: 5px;
+            margin: 2rem 0;
+            color: #856404;
+        }
+
+        footer {
+            background: #1a1a2e;
+            color: #fff;
+            text-align: center;
+            padding: 2rem;
+        }
+
+        footer p {
+            margin: 0.5rem 0;
+        }
+
+        @media (max-width: 768px) {
+            .hero-content h1 {
+                font-size: 2rem;
+            }
+
+            .hero-content p {
+                font-size: 1rem;
+            }
+
+            .nav-links {
+                gap: 1rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
+            .auth-forms {
+                grid-template-columns: 1fr;
+            }
+
+            .flight-info {
+                gap: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="navbar-content">
+            <div class="logo">
+                <img src="logo.jpg" alt="Imperial Airlines">
+                <span class="logo-text">IMPERIAL</span>
+            </div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#search">Book Flight</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#login">Login</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <h1>Experience Premium Air Travel</h1>
+            <p>Elevate Your Journey with Imperial Airlines</p>
+            <a href="#search" class="btn btn-primary" style="font-size: 1.1rem; padding: 1rem 2.5rem;">Book Your Flight</a>
+        </div>
+    </section>
+
+    <section class="section">
+        <div class="container">
+            <h2 class="section-title">Why Choose Imperial Airlines</h2>
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">✈️</div>
+                    <h3>Premium Comfort</h3>
+                    <p>Spacious seating with luxury amenities designed for the discerning traveler</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🌍</div>
+                    <h3>Global Network</h3>
+                    <p>Connect to over 150 destinations worldwide with seamless service</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🏆</div>
+                    <h3>Exclusive Lounges</h3>
+                    <p>Access to premium airport lounges with fine dining and business facilities</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">💼</div>
+                    <h3>Concierge Service</h3>
+                    <p>24/7 personal assistance for all your travel needs</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="search" class="section">
+        <div class="container">
+            <h2 class="section-title">Search & Book Your Flight</h2>
+            <div class="search-card">
+                <form class="search-form">
+                    <div class="form-group">
+                        <label>From</label>
+                        <select required>
+                            <option value="">Select City</option>
+                            <option value="NYC">New York (JFK)</option>
+                            <option value="LON">London (LHR)</option>
+                            <option value="DXB">Dubai (DXB)</option>
+                            <option value="SIN">Singapore (SIN)</option>
+                            <option value="TYO">Tokyo (NRT)</option>
+                            <option value="PAR">Paris (CDG)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>To</label>
+                        <select required>
+                            <option value="">Select City</option>
+                            <option value="NYC">New York (JFK)</option>
+                            <option value="LON">London (LHR)</option>
+                            <option value="DXB">Dubai (DXB)</option>
+                            <option value="SIN">Singapore (SIN)</option>
+                            <option value="TYO">Tokyo (NRT)</option>
+                            <option value="PAR">Paris (CDG)</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label>Departure Date</label>
+                        <input type="date" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Passengers</label>
+                        <input type="number" min="1" max="9" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label>Class</label>
+                        <select>
+                            <option value="first">First Class</option>
+                            <option value="business">Business Class</option>
+                        </select>
+                    </div>
+                    <div class="form-group" style="display: flex; align-items: flex-end;">
+                        <button type="submit" class="btn btn-primary" style="width: 100%; padding: 0.8rem;">Search Flights</button>
+                    </div>
+                </form>
+            </div>
+
+            <div class="info-note">
+                <strong>Note:</strong> This is a demo website. To enable actual flight search and booking functionality, please login or sign up below.
+            </div>
+
+            <div class="flights-container">
+                <h3 style="color: #1a1a2e; margin-bottom: 1.5rem; text-align: center;">Sample Available Flights</h3>
+                
+                <div class="flight-card">
+                    <div class="flight-info">
+                        <div class="flight-time">
+                            <h3>08:00</h3>
+                            <p>NYC (JFK)</p>
+                        </div>
+                        <div class="flight-duration">
+                            <p>7h</p>
+                            <p>────✈────</p>
+                        </div>
+                        <div class="flight-time">
+                            <h3>20:00</h3>
+                            <p>LON (LHR)</p>
+                        </div>
+                    </div>
+                    <div class="flight-price">
+                        <h3>$4,500</h3>
+                        <p>First Class</p>
+                        <a href="#login" class="btn btn-primary" style="margin-top: 1rem;">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-info">
+                        <div class="flight-time">
+                            <h3>10:00</h3>
+                            <p>LON (LHR)</p>
+                        </div>
+                        <div class="flight-duration">
+                            <p>6h 30m</p>
+                            <p>────✈────</p>
+                        </div>
+                        <div class="flight-time">
+                            <h3>19:30</h3>
+                            <p>DXB (DXB)</p>
+                        </div>
+                    </div>
+                    <div class="flight-price">
+                        <h3>$3,800</h3>
+                        <p>First Class</p>
+                        <a href="#login" class="btn btn-primary" style="margin-top: 1rem;">Book Now</a>
+                    </div>
+                </div>
+
+                <div class="flight-card">
+                    <div class="flight-info">
+                        <div class="flight-time">
+                            <h3>11:00</h3>
+                            <p>SIN (SIN)</p>
+                        </div>
+                        <div class="flight-duration">
+                            <p>6h 30m</p>
+                            <p>────✈────</p>
+                        </div>
+                        <div class="flight-time">
+                            <h3>18:30</h3>
+                            <p>TYO (NRT)</p>
+                        </div>
+                    </div>
+                    <div class="flight-price">
+                        <h3>$3,500</h3>
+                        <p>First Class</p>
+                        <a href="#login" class="btn btn-primary" style="margin-top: 1rem;">Book Now</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="about" class="section">
+        <div class="container">
+            <h2 class="section-title">About Imperial Airlines</h2>
+            <p class="about-content">
+                Imperial Airlines is the world's premier luxury carrier, dedicated to providing an unparalleled travel experience for business executives and high net worth individuals. With our state-of-the-art fleet and exceptional service standards, we redefine what it means to fly in comfort and style.
+            </p>
+            
+            <div class="features">
+                <div class="feature-card">
+                    <div class="feature-icon">🛩️</div>
+                    <h3>Our Fleet</h3>
+                    <p>Modern aircraft equipped with the latest technology and luxury amenities</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">⭐</div>
+                    <h3>Our Service</h3>
+                    <p>Award-winning cabin crew trained to anticipate your every need</p>
+                </div>
+                <div class="feature-card">
+                    <div class="feature-icon">🎯</div>
+                    <h3>Our Commitment</h3>
+                    <p>Safety, punctuality, and excellence in every aspect of your journey</p>
+                </div>
+            </div>
+
+            <div class="info-banner">
+                <h3>Ready to Experience Luxury?</h3>
+                <p>Join our exclusive frequent flyer program and enjoy benefits from your very first flight</p>
+                <a href="#login" class="btn btn-secondary" style="margin-top: 1rem; border-color: #fff; color: #fff;">Join Now</a>
+            </div>
+        </div>
+    </section>
+
+    <section id="login" class="section">
+        <div class="container">
+            <h2 class="section-title">Access Your Account</h2>
+            
+            <div class="auth-forms">
+                <div class="auth-card">
+                    <h3>Login</h3>
+                    <form>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Enter your password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Login</button>
+                    </form>
+                </div>
+
+                <div class="auth-card">
+                    <h3>Sign Up</h3>
+                    <form>
+                        <div class="form-group">
+                            <label>Full Name</label>
+                            <input type="text" placeholder="Enter your full name" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Email Address</label>
+                            <input type="email" placeholder="Enter your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label>Password</label>
+                            <input type="password" placeholder="Create a password" required>
+                        </div>
+                        <button type="submit" class="btn btn-primary" style="width: 100%; margin-top: 1rem;">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+
+            <div class="info-note" style="max-width: 800px; margin: 3rem auto;">
+                <strong>Demo Note:</strong> This is a static HTML website. For full authentication and booking functionality, backend integration with a server and database would be required.
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2024 Imperial Airlines. All rights reserved.</p>
+        <p>Redefining Luxury in Air Travel</p>
+    </footer>
+</body>
+</html>
